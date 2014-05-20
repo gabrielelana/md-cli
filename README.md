@@ -1,4 +1,1 @@
-md-cli
-======
-
-Syntax highlights Markdown text with ANSI colors to be printed to the terminal
+# Markdown Command Line Syntax Highlight
