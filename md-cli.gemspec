@@ -18,4 +18,5 @@ spec = Gem::Specification.new do |s|
   # s.add_development_dependency('aruba')
   s.add_runtime_dependency('redcarpet','~> 3.1')
   s.add_runtime_dependency('rainbow','~> 2.0')
+  # s.add_runtime_dependency('slop','~> 3.5')
 end
