@@ -1,3 +1,67 @@
 #!/usr/bin/env ruby
 
+require 'redcarpet'
+require 'rainbow'
 
+
+class TerminalRender < Redcarpet::Render::Base
+  def normal_text(text)
+    text
+  end
+
+  def block_code(code, language)
+    Rainbow("```#{language}").bright.blue + "\n" +
+      Rainbow(code).yellow + "\n" +
+      Rainbow("```").bright.blue + "\n"
+  end
+
+  def codespan(code)
+    Rainbow("`").bright.blue +
+      Rainbow(code).yellow +
+      Rainbow("`").bright.blue
+  end
+
+  def header(title, level)
+    Rainbow('#' * level).bright.blue + ' ' + Rainbow(title).bright + "\n"
+  end
+
+  # def double_emphasis(text)
+  #   "\\fB#{text}\\fP"
+  # end
+
+  def emphasis(text)
+    Rainbow(text).italic
+  end
+
+  def linebreak
+    "\n"
+  end
+
+  def paragraph(text)
+    text + "\n\n"
+  end
+
+  # def list(content, list_type)
+  #   case list_type
+  #   when :ordered
+  #     "\n\n.nr step 0 1\n#{content}\n"
+  #   when :unordered
+  #     "\n.\n#{content}\n"
+  #   end
+  # end
+
+  # def list_item(content, list_type)
+  #   case list_type
+  #   when :ordered
+  #     ".IP \\n+[step]\n#{content.strip}\n"
+  #   when :unordered
+  #     ".IP \\[bu] 2 \n#{content.strip}\n"
+  #   end
+  # end
+end
+
+
+puts Redcarpet::Markdown.new(
+  TerminalRender,
+  fenced_code_blocks: true
+).render(ARGF.read)
