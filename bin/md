@@ -11,13 +11,13 @@ class TerminalRender < Redcarpet::Render::Base
 
   def block_code(code, language)
     Rainbow("```#{language}").bright.blue + "\n" +
-      Rainbow(code).yellow + "\n" +
+      Rainbow(code).color("#777777") + "\n" +
       Rainbow("```").bright.blue + "\n"
   end
 
   def codespan(code)
     Rainbow("`").bright.blue +
-      Rainbow(code).yellow +
+      Rainbow(code).color("#777777") +
       Rainbow("`").bright.blue
   end
 
@@ -63,5 +63,6 @@ end
 
 puts Redcarpet::Markdown.new(
   TerminalRender,
-  fenced_code_blocks: true
+  fenced_code_blocks: true,
+  lax_spacing: true
 ).render(ARGF.read)
