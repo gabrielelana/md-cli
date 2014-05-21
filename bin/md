@@ -25,12 +25,16 @@ class TerminalRender < Redcarpet::Render::Base
     Rainbow('#' * level).bright.blue + ' ' + Rainbow(title).bright + "\n"
   end
 
-  # def double_emphasis(text)
-  #   "\\fB#{text}\\fP"
-  # end
+  def double_emphasis(text)
+    Rainbow("**").bright.blue +
+      Rainbow(text).bright +
+      Rainbow("**").bright.blue
+  end
 
   def emphasis(text)
-    Rainbow(text).italic
+    Rainbow("*").bright.blue +
+      Rainbow(text).italic +
+      Rainbow("*").bright.blue
   end
 
   def linebreak
@@ -41,28 +45,29 @@ class TerminalRender < Redcarpet::Render::Base
     text + "\n\n"
   end
 
-  # def list(content, list_type)
-  #   case list_type
-  #   when :ordered
-  #     "\n\n.nr step 0 1\n#{content}\n"
-  #   when :unordered
-  #     "\n.\n#{content}\n"
-  #   end
-  # end
+  def list(content, list_type)
+    case list_type
+    when :ordered
+      nil
+    when :unordered
+      content + "\n"
+    end
+  end
 
-  # def list_item(content, list_type)
-  #   case list_type
-  #   when :ordered
-  #     ".IP \\n+[step]\n#{content.strip}\n"
-  #   when :unordered
-  #     ".IP \\[bu] 2 \n#{content.strip}\n"
-  #   end
-  # end
+  def list_item(content, list_type)
+    case list_type
+    when :ordered
+      nil
+    when :unordered
+      Rainbow("*").bright.blue + " " + content
+    end
+  end
 end
 
 
 puts Redcarpet::Markdown.new(
   TerminalRender,
+  # Redcarpet::Render::HTML,
   fenced_code_blocks: true,
   lax_spacing: true
 ).render(ARGF.read)
