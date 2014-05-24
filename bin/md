@@ -5,19 +5,22 @@ require 'rainbow'
 
 
 class TerminalRender < Redcarpet::Render::Base
+
+  CODE_COLOR = "#D2D231"
+
   def normal_text(text)
     text
   end
 
   def block_code(code, language)
     Rainbow("```#{language}").bright.blue + "\n" +
-      Rainbow(code).color("#777777") + "\n" +
+      Rainbow(code).color(CODE_COLOR) + "\n" +
       Rainbow("```").bright.blue + "\n"
   end
 
   def codespan(code)
     Rainbow("`").bright.blue +
-      Rainbow(code).color("#777777") +
+      Rainbow(code).color(CODE_COLOR) +
       Rainbow("`").bright.blue
   end
 
@@ -67,7 +70,6 @@ end
 
 puts Redcarpet::Markdown.new(
   TerminalRender,
-  # Redcarpet::Render::HTML,
   fenced_code_blocks: true,
   lax_spacing: true
 ).render(ARGF.read)
