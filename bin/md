@@ -3,6 +3,7 @@
 require 'redcarpet'
 require 'rainbow'
 
+Rainbow.enabled = true
 
 class TerminalRender < Redcarpet::Render::Base
 
